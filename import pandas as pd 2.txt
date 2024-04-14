@@ -1,0 +1,36 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import mean_absolute_percentage_error
+
+# قراءة ملف CSV
+file = pd.read_csv("C:/Users/new/Desktop/house.csv")
+file
+
+# ملء الخانات الفارغة في عمود "MasVnrArea" بالمتوسط
+file["MasVnrArea"].fillna(file["MasVnrArea"].mean(), inplace=True)
+
+# فحص وطباعة مجموع القيم الفارغة في كل عمود
+file.isnull().sum()
+
+# تحديد المتغيرات التنبؤية والمتغير الهدف
+x = file.drop("SalePrice", axis=1)
+y = file["SalePrice"]
+
+# تقسيم البيانات إلى مجموعات التدريب والاختبار
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=50)
+
+# بناء نموذج Decision Tree Regressor وتدريبه
+model = DecisionTreeRegressor()
+model.fit(x_train, y_train)
+
+# التنبؤ بقيم الاختبار
+y_pred = model.predict(x_test)
+
+# حساب معدل الخطأ المئوي المطلق
+mse = mean_absolute_percentage_error(y_test, y_pred)
+
+# طباعة معدلات الخطأ
+print("Mean Absolute Percentage Error:", mse)
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
+print("Root Mean Squared Error:", mean_squared_error(y_test, y_pred, squared=False))

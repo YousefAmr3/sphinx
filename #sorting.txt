@@ -1,0 +1,25 @@
+#sorting
+
+import sorting 
+data=[7,4,0,2,5]
+res=sorting.merge(data)
+print('Merge sort   :',res)
+
+
+
+
+
+
+
+
+
+
+
+#sorting
+
+import sorting 
+data=[7,4,0,2,5]
+res=sorting.quick(data)
+print('Quick sort   :',res)
+
+
